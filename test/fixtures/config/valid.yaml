@@ -1,0 +1,20 @@
+github:
+  token_secret_name: ami-automation/github-token
+k8s_versions:
+  - "1.29"
+  - "1.30"
+ami_family: amazon-linux-2
+concurrency: 3
+repos:
+  - owner: my-org
+    repo: cloud-infra-prod
+    branch: main
+    scanners:
+      - terraform
+      - terragrunt
+  - owner: my-org
+    repo: platform-infra
+    branch: main
+    scanners:
+      - crossplane
+pr_title: "chore: update EKS AMI to {{.NewVersion}} for k8s {{.K8sVersion}}"

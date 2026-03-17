@@ -1,0 +1,48 @@
+run:
+  timeout: 5m
+  go: "1.22"
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - gosec
+    - revive
+    - gofmt
+    - goimports
+    - ineffassign
+    - unused
+    - bodyclose
+    - contextcheck
+    - exhaustive
+    - godot
+    - misspell
+    - noctx
+    - prealloc
+    - unconvert
+    - unparam
+
+linters-settings:
+  gosec:
+    excludes:
+      - G304  # File path from variable — we validate paths in sanitize package
+  revive:
+    rules:
+      - name: exported
+        disabled: false
+      - name: var-naming
+        disabled: false
+  goimports:
+    local-prefixes: github.com/kaiohenricunha/ami-update-automation
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gosec
+        - errcheck
+    - path: test/
+      linters:
+        - gosec
+        - errcheck

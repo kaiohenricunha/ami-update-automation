@@ -1,0 +1,39 @@
+github:
+  token_secret_name: ami-update-automation/github-token
+
+k8s_versions:
+  - "1.29"
+  - "1.30"
+
+ami_family: amazon-linux-2
+concurrency: 5
+
+repos:
+  - owner: my-org
+    repo: cloud-infra-prod
+    branch: main
+    scanners:
+      - terraform
+      - terragrunt
+
+  - owner: my-org
+    repo: platform-infra
+    branch: main
+    scanners:
+      - crossplane
+
+pr_title: "chore: update EKS AMI to {{.NewVersion}} for Kubernetes {{.K8sVersion}}"
+pr_body_template: |
+  ## EKS AMI Update
+
+  Updates the EKS-optimized AMI release version to `{{.NewVersion}}` for Kubernetes {{.K8sVersion}}.
+
+  ### Why
+  AWS released a new recommended AMI version. Keeping node groups on the latest
+  recommended AMI ensures security patches and bug fixes are applied promptly.
+
+  ### Files Updated
+  See the diff for the list of updated files.
+
+  ---
+  _Automated by [ami-update-automation](https://github.com/kaiohenricunha/ami-update-automation)_

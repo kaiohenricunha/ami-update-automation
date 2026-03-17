@@ -1,0 +1,11 @@
+name: eks-cluster
+runtime: yaml
+description: EKS cluster with managed node groups
+resources:
+  workers:
+    type: aws:eks:NodeGroup
+    properties:
+      clusterName: prod
+      amiReleaseVersion: "1.29.3-20240531"
+      instanceTypes:
+        - m5.xlarge
